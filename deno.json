@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "noImplicitReturns": true
+  },
+  "fmt": {
+    "options": {
+      "indentWidth": 2,
+      "proseWrap": "preserve"
+    }
+  }
+}
