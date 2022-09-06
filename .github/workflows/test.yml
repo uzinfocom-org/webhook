@@ -18,7 +18,7 @@ jobs:
           deno-version: vx.x.x
 
       - name: Format
-        run: deno fmt
+        run: deno fmt --config deno.json
 
       - name: Lint
-        run: deno lint
+        run: deno lint --config deno.json
