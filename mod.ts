@@ -2,10 +2,12 @@
 /// <reference lib="dom.iterable" />
 import { Bot, InlineKeyboard, on, webhooks } from "./deps.ts";
 
+// Initializing instances
 const env = Deno.env.toObject();
 const channel = env["CHANNEL"];
 const bot = new Bot(env["TOKEN"] || "");
 
+// Telegram sendMessage API Request
 async function push(message: string, link = "") {
   switch (link) {
     case "":
