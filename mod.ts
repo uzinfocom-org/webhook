@@ -63,6 +63,7 @@ webhooks()(
   on("deployment", async ({ deployment }, _context) => {
     await push(
       `🎛 <b>${deployment.environment}</b> deployment with <b>#${deployment.id}</b> has been deployed!`,
+      deployment.url,
     );
   }),
   // discussion
@@ -105,8 +106,12 @@ webhooks()(
   on("workflow_run", async ({ workflow_run }, _context) => {
     if (workflow_run.conclusion === "success") {
       await push(
-        `🔨 <b>Workflow</b> of ${workflow_run.repository.name} ${workflow_run.name} ${workflow_run.conclusion}`,
+        `🔨 <b>Workflow</b> of ${workflow_run.repository.name} ${workflow_run.name} completed successfully!`,
         workflow_run.html_url,
+      );
+    } else {
+      await push(
+        `🔨 <b>Workflow</b> of ${workflow_run.repository.name} ${workflow_run.name} ${workflow_run.conclusion}`,
       );
     }
   })
