@@ -104,6 +104,7 @@ webhooks()(
       );
   }),
   on("workflow_run", async ({ workflow_run }, _context) => {
+    if (!workflow_run.conclusion) return;
     if (workflow_run.conclusion === "success") {
       await push(
         `🔨 <b>Workflow</b> of ${workflow_run.repository.name} ${workflow_run.name} completed successfully!`,
