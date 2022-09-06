@@ -103,6 +103,7 @@ webhooks()(
       );
   }),
   on("workflow_run", async ({ workflow_run }, _context) => {
+    console.log(workflow_run.conclusion)
     await push(
       `🔨 <b>Workflow</b> of ${workflow_run.repository.name} ${workflow_run.name} ${workflow_run.conclusion}`,
       workflow_run.html_url,
