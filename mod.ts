@@ -7,6 +7,10 @@ const channel = env["CHANNEL"];
 const bot = new Bot(env["TOKEN"] || "");
 
 webhooks()(
+  // ping
+  on("ping", async () => {
+    await bot.api.sendMessage(channel, "GitHub Ping from Ping Webhook");
+  }),
   on("push", async (event) => {
     const { ref, commits, repository } = event;
     const branch = ref.split("/").pop();
@@ -16,17 +20,17 @@ webhooks()(
     const text = `Pushed to ${branch} at ${name} - ${message} ${url}`;
     await bot.api.sendMessage(channel, text);
   }),
-  on("issues", ({ issue }, _context) => {
+  on("issues", async ({ issue }, _context) => {
     const text = `Issue #${issue.number} was ${issue.body}`;
-    bot.api.sendMessage(channel, text).then();
+    await bot.api.sendMessage(channel, text).then();
   }),
-  on("issue_comment", ({ issue, comment }, _context) => {
+  on("issue_comment", async ({ issue, comment }, _context) => {
     const text = `@${comment.user.login} commented on issue #${issue.number}: ${comment.body}`;
-    bot.api.sendMessage(channel, text).then();
+    await bot.api.sendMessage(channel, text);
   }),
   // deployment
-  on("deployment", ({deployment}, _context) => {
+  on("deployment", async ({deployment}, _context) => {
     const text = `Deployment #${deployment.id} was ${deployment.environment}`;
-    bot.api.sendMessage(channel, text).then();
+    await bot.api.sendMessage(channel, text);
   }),
 );
