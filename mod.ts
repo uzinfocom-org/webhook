@@ -1,40 +1,32 @@
-import { stateFinder } from "./utils.ts";
-import { Bot, serve, webhookCallback } from "./deps.ts";
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
+import { Bot, webhooks, on } from "./deps.ts";
 
-export const env = Deno.env.toObject();
-export const bot = new Bot(env["TOKEN"] || "");
-export const handle = webhookCallback(bot, "std/http");
+const env = Deno.env.toObject();
+const channel = env["CHANNEL"];
+const bot = new Bot(env["TOKEN"] || "");
 
-const webhook = async () => {
-  await serve(async (req) => {
-    const url = new URL(req.url);
-
-    if (req.method == "POST") {
-      switch (url.pathname) {
-        case "/github":
-          console.log(stateFinder(await req.json()));
-          return new Response("Github Webhook");
-        case "/bot":
-          return await handle(req);
-        default:
-          return new Response("What you're trying to post?");
-      }
-    }
-
-    switch (url.pathname) {
-      case "/telegram":
-        return new Response(req.url);
-      case "/webhook":
-        try {
-          await bot.api.setWebhook(`https://${url.hostname}/bot`);
-          return new Response("Done. Set");
-        } catch (_) {
-          return new Response("Couldn't succeed with installing webhook");
-        }
-      default:
-        return Response.redirect("https://t.me/xinux_changelog", 302);
-    }
-  });
-};
-
-await webhook();
+webhooks()(
+  on("push", async (event) => {
+    const { ref, commits, repository } = event;
+    const branch = ref.split("/").pop();
+    const { name } = repository;
+    const commit = commits[0];
+    const { message, url } = commit;
+    const text = `Pushed to ${branch} at ${name} - ${message} ${url}`;
+    await bot.api.sendMessage(channel, text);
+  }),
+  on("issues", ({ issue }, _context) => {
+    const text = `Issue #${issue.number} was ${issue.body}`;
+    bot.api.sendMessage(channel, text).then();
+  }),
+  on("issue_comment", ({ issue, comment }, _context) => {
+    const text = `@${comment.user.login} commented on issue #${issue.number}: ${comment.body}`;
+    bot.api.sendMessage(channel, text).then();
+  }),
+  // deployment
+  on("deployment", ({deployment}, _context) => {
+    const text = `Deployment #${deployment.id} was ${deployment.environment}`;
+    bot.api.sendMessage(channel, text).then();
+  }),
+);
