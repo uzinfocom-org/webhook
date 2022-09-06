@@ -10,6 +10,9 @@ const webhook = async () => {
 
     if (req.method == "POST") {
       switch (url.pathname) {
+        case "/github":
+          console.log(req.body);
+          return new Response("Github Webhook");
         case "/bot":
           return await handle(req);
         default:
@@ -18,9 +21,6 @@ const webhook = async () => {
     }
 
     switch (url.pathname) {
-      case "/github":
-        console.log(req.body);
-        return new Response("Github Webhook");
       case "/telegram":
         return new Response(req.url);
       case "/webhook":
