@@ -11,7 +11,7 @@ const webhook = async () => {
     if (req.method == "POST") {
       switch (url.pathname) {
         case "/github":
-          console.log(req.json());
+          console.log(await req.json());
           return new Response("Github Webhook");
         case "/bot":
           return await handle(req);
