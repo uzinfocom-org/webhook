@@ -1,3 +1,4 @@
+import { stateFinder } from "./utils.ts";
 import { Bot, serve, webhookCallback } from "./deps.ts";
 
 export const env = Deno.env.toObject();
@@ -11,7 +12,7 @@ const webhook = async () => {
     if (req.method == "POST") {
       switch (url.pathname) {
         case "/github":
-          console.log(await req.json());
+          console.log(stateFinder(await req.json()));
           return new Response("Github Webhook");
         case "/bot":
           return await handle(req);
