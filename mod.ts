@@ -1,11 +1,10 @@
-import { blue, Bot, serve, webhookCallback } from "./deps.ts";
+import { Bot, serve, webhookCallback } from "./deps.ts";
 
 export const env = Deno.env.toObject();
 export const bot = new Bot(env["TOKEN"] || "");
 export const handle = webhookCallback(bot, "std/http");
 
 const webhook = async () => {
-  await console.log(blue("[INFO]"), `bot is starting on ${env["HOST"]}`);
   await serve(async (req) => {
     const url = new URL(req.url);
 
