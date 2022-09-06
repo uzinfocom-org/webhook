@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 /// <reference lib="dom.iterable" />
-import { Bot, webhooks, on } from "./deps.ts";
+import { Bot, on, webhooks } from "./deps.ts";
 
 const env = Deno.env.toObject();
 const channel = env["CHANNEL"];
@@ -25,11 +25,12 @@ webhooks()(
     await bot.api.sendMessage(channel, text).then();
   }),
   on("issue_comment", async ({ issue, comment }, _context) => {
-    const text = `@${comment.user.login} commented on issue #${issue.number}: ${comment.body}`;
+    const text =
+      `@${comment.user.login} commented on issue #${issue.number}: ${comment.body}`;
     await bot.api.sendMessage(channel, text);
   }),
   // deployment
-  on("deployment", async ({deployment}, _context) => {
+  on("deployment", async ({ deployment }, _context) => {
     const text = `Deployment #${deployment.id} was ${deployment.environment}`;
     await bot.api.sendMessage(channel, text);
   }),
