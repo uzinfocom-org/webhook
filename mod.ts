@@ -2,7 +2,6 @@
 /// <reference lib="dom.iterable" />
 
 import { on, webhooks } from "./deps.ts";
-import { Bot } from "./bot.ts";
 import {
   CreateEvent,
   DeploymentEvent,
@@ -13,27 +12,15 @@ import {
   IssuesEvent,
   PublicEvent,
   PullRequestEvent,
-  PushEvent,
   ReleaseEvent,
   StarEvent,
   // WorkflowRunEvent,
 } from "./deps.ts";
 
-const bot = new Bot();
+import PushAction from "./actions/push.ts";
 
 webhooks()(
-  on("ping", async () => {
-    await bot.push("GitHub Ping from Webhook");
-  }),
-  on("push", async (event: PushEvent) => {
-    const { ref, commits, repository } = event;
-    const branch = ref.split("/").pop();
-    const { name } = repository;
-    const commit = commits[0];
-    const { message, url } = commit;
-    const text = `📦 <b>Pushed to ${branch} at ${name}</b>\n\n${message}`;
-    await bot.push(text, url);
-  }),
+  on("push", PushAction),
   on("pull_request", async (event: PullRequestEvent) => {
     const { action, pull_request, repository } = event;
     const { title, html_url } = pull_request;
