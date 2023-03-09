@@ -6,8 +6,6 @@ import {Bot} from "./bot.ts";
 
 const bot = new Bot();
 
-// bot.addChannel(-1001848221547);
-
 webhooks()(
     on("ping", async () => {
         await bot.push("GitHub Ping from Webhook");
