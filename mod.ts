@@ -6,7 +6,7 @@ import {Bot} from "./bot.ts";
 
 const bot = new Bot();
 
-bot.addChannel(-1001848221547);
+// bot.addChannel(-1001848221547);
 
 webhooks()(
     on("ping", async () => {
