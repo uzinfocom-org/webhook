@@ -8,9 +8,9 @@ export class Bot {
 
   constructor(token: string = env["TOKEN"], channel: string = "") {
     if (!token) {
-        throw new Error("No token provided");
+      throw new Error("No token provided");
     } else {
-        this._instance = new Grammy(token);
+      this._instance = new Grammy(token);
     }
 
     if (channel) {
@@ -22,7 +22,7 @@ export class Bot {
     }
   }
 
-  addChannel(channel: string | number) {
+  public addChannel(channel: string | number) {
     this._channels.push(channel);
   }
 
@@ -52,7 +52,7 @@ export class Bot {
    * @param message Message to deliver to the channel
    * @param link Some link to attach to the message
    */
-  async push(message: string, link = "") {
+  public async push(message: string, link = "") {
     for (const channel of this._channels) {
       await this.send(channel, message, link);
     }

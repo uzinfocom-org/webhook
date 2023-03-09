@@ -104,5 +104,16 @@
     "https://esm.sh/v111/@grammyjs/types@2.9.1/payment.d.ts": "410c384a26d24252219713adeb0c360d5d038102ab9d1a6e9aad20b603830d0c",
     "https://esm.sh/v111/@grammyjs/types@2.9.1/proxied.d.ts": "6e3d830b3ed508d7682e72cb1cee5e941e698531894dbd69194666d7398feb45",
     "https://esm.sh/v111/@grammyjs/types@2.9.1/update.d.ts": "caf8e01cc0857bde5a787243bc307d3e621f86242dd4058f5e20b156f61c083d"
+  },
+  "npm": {
+    "specifiers": {
+      "@octokit/webhooks-definitions": "@octokit/webhooks-definitions@3.67.3"
+    },
+    "packages": {
+      "@octokit/webhooks-definitions@3.67.3": {
+        "integrity": "sha512-do4Z1r2OVhuI0ihJhQ8Hg+yPWnBYEBNuFNCrvtPKoYT1w81jD7pBXgGe86lYuuNirkDHb0Nxt+zt4O5GiFJfgA==",
+        "dependencies": {}
+      }
+    }
   }
 }
