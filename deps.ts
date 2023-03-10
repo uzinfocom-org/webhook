@@ -1,5 +1,6 @@
 // GitHub Webhook
 export { on, webhooks } from "https://deno.land/x/github_webhooks@0.1.1/mod.ts";
+export type { Context as GCTX } from "https://deno.land/x/github_webhooks@0.1.1/mod.ts";
 
 // Telegram
 export {
@@ -28,4 +29,5 @@ export type {
   ReleaseEvent,
   StarEvent,
   WorkflowRunEvent,
-} from "npm:@octokit/webhooks-definitions/schema.d.ts";
+} from "./schema/mod.ts";
+// } from "npm:@octokit/webhooks-definitions/schema.d.ts";

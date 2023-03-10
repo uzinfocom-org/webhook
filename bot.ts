@@ -33,17 +33,16 @@ export class Bot {
    * @param link Some link to attach to the message
    * @returns void
    */
-  public async send(channel: string | number, message: string, link = "") {
-    switch (link) {
-      case "":
-        return await this._instance.api.sendMessage(channel, message, {
-          parse_mode: "HTML",
-        });
-      default:
-        return await this._instance.api.sendMessage(channel, message, {
-          parse_mode: "HTML",
-          reply_markup: new InlineKeyboard().url("View it on GitHub", link),
-        });
+  public async send(channel: string | number, message: string, link?: string) {
+    if (!link) {
+      return await this._instance.api.sendMessage(channel, message, {
+        parse_mode: "HTML",
+      });
+    } else {
+      return await this._instance.api.sendMessage(channel, message, {
+        parse_mode: "HTML",
+        reply_markup: new InlineKeyboard().url("View it on GitHub", link),
+      });
     }
   }
 
@@ -58,3 +57,5 @@ export class Bot {
     }
   }
 }
+
+export default new Bot();
