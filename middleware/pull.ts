@@ -1,10 +1,16 @@
-import bot from "../bot.ts";
+import Event from "../event.ts";
 import { PullRequestEvent } from "../deps.ts";
 
 export default async (event: PullRequestEvent) => {
-  const { action, pull_request, repository } = event;
-  const { title, html_url } = pull_request;
-  const { name } = repository;
-  const text = `📦 <b>${action} PR at ${name}</b>\n\n${title}`;
-  await bot.push(text, html_url);
+  const message = new Event();
+
+  message.setEvent("pull");
+  message.setRepository(event.repository.name, event.repository.owner.login);
+  message.setLink(event.pull_request.html_url);
+  message.setAuthor(event.sender.login);
+  message.setDescription(
+    `${event.sender.login} ${event.action} a pull request at ${event.repository.name}: ${event.pull_request.title}`,
+  );
+
+  await message.push();
 };

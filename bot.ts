@@ -22,9 +22,9 @@ export class Bot {
     }
   }
 
-  public addChannel(channel: string | number) {
-    this._channels.push(channel);
-  }
+  // public addChannel(channel: string | number) {
+  //   this._channels.push(channel);
+  // }
 
   /**
    * Send a message to a channel
@@ -58,4 +58,6 @@ export class Bot {
   }
 }
 
-export default new Bot();
+const bot = new Bot();
+
+export default bot;
