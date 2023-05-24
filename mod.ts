@@ -1,11 +1,8 @@
 /// <reference lib="dom" />
 /// <reference lib="dom.iterable" />
 
-// Github Webhook
-import { webhooks } from "./deps.ts";
+// Import the server
+import server from "./helper/server.ts";
 
-// Middleware
-import triggers from "./middleware/mod.ts";
-
-// Webhook event trigger list
-webhooks()(...triggers);
+// Start the server
+await server();

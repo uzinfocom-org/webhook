@@ -7,10 +7,10 @@ alias f := format
 alias c := cache
 
 start:
-	deno run --allow-all ./mod.ts --config deno.json
+	deno run --allow-all ./schema.ts --config deno.json
 
 development:
-	deno run --allow-all --watch ./mod.ts --config deno.json
+	deno run --allow-all --watch ./schema.ts --config deno.json
 
 lint:
 	deno lint --config deno.json

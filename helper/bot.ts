@@ -1,4 +1,4 @@
-import { Bot as Grammy, InlineKeyboard } from "./deps.ts";
+import { Bot as Grammy, InlineKeyboard } from "../deps.ts";
 
 const env = Deno.env.toObject();
 

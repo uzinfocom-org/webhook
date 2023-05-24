@@ -14,8 +14,9 @@ import { default as ForkAction } from "./fork.ts";
 import { default as PublicAction } from "./public.ts";
 import { default as ReleaseAction } from "./release.ts";
 import { default as StarAction } from "./star.ts";
+import { default as WorkflowRunAction } from "./workflow-run.ts";
 
-const triggerList: any = [
+const triggerList = [
   ["push", PushAction],
   ["pull_request", PullAction],
   ["create", CreateAction],
@@ -28,7 +29,7 @@ const triggerList: any = [
   ["public", PublicAction],
   ["release", ReleaseAction],
   ["star", StarAction],
-  // ["workflow_run", WorkflowRunAction]
+  ["workflow_run", WorkflowRunAction],
 ];
 
 export default triggerList.map((trigger: any) => on(trigger[0], trigger[1]));

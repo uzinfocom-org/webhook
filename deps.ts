@@ -1,6 +1,7 @@
 // GitHub Webhook
 export { on, webhooks } from "https://deno.land/x/github_webhooks@0.1.1/mod.ts";
 export type { Context as GCTX } from "https://deno.land/x/github_webhooks@0.1.1/mod.ts";
+export { serve } from "https://deno.land/std@0.188.0/http/server.ts";
 
 // Telegram
 export {
@@ -10,11 +11,9 @@ export {
   InlineKeyboard,
   InputFile,
   webhookCallback,
-} from "https://deno.land/x/grammy@v1.11.0/mod.ts";
-export type { NextFunction } from "https://deno.land/x/grammy@v1.11.0/mod.ts";
+} from "https://deno.land/x/grammy@v1.16.1/mod.ts";
+export type { NextFunction } from "https://deno.land/x/grammy@v1.16.1/mod.ts";
 
-// GitHub API
-// @octokit/webhooks-definitions
 export type {
   CreateEvent,
   DeploymentEvent,
@@ -29,5 +28,7 @@ export type {
   ReleaseEvent,
   StarEvent,
   WorkflowRunEvent,
-} from "./schema/mod.ts";
-// } from "npm:@octokit/webhooks-definitions/schema.d.ts";
+  // For production
+  // } from "npm:@octokit/webhooks-types/schema.d.ts@^6.11.0";
+  // For development
+} from "./schema.ts";

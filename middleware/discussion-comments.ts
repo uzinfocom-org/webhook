@@ -1,4 +1,4 @@
-import bot from "../bot.ts";
+import bot from "../helper/bot.ts";
 import { DiscussionCommentEvent, GCTX } from "../deps.ts";
 
 export default async (event: DiscussionCommentEvent, _context: GCTX) => {
