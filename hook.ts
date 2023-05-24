@@ -1,7 +1,6 @@
 import {
   createJWT,
   encodeToString,
-  generatePass,
   hmac,
   WebhookEvent,
   WebhookEventMap,
@@ -66,17 +65,6 @@ export function buildOn<C extends Context>() {
 
 /* Creates an event handler */
 export const on = buildOn<Context>();
-
-/* Generates a secret to sign and verify requests from GitHub */
-export function generateSecret() {
-  const { pass } = generatePass({
-    type: "alphanum",
-    number: 32,
-    caps: true,
-  });
-
-  return pass;
-}
 
 export function json(payload: Record<string, unknown>, status = 200) {
   return new Response(JSON.stringify(payload), {

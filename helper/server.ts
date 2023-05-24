@@ -1,14 +1,14 @@
 // GitHub Webhook & Http server
-import { Config, Context, EventHandler } from "../hook/mod.ts";
+import { Config, Context, EventHandler } from "../hook.ts";
 import {
   fetchPayload,
   fetchToken,
   json,
   parseHeaders,
   verifySignature,
-} from "../hook/mod.ts";
+} from "../hook.ts";
 
-export { on } from "../hook/mod.ts";
+export { on } from "../hook.ts";
 
 // TODO: Implement telegram bot
 // export const bot = new Bot(env["TOKEN"] || "");

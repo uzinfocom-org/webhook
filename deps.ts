@@ -1,6 +1,6 @@
 // GitHub Webhook
-export { on } from "./hook/mod.ts";
-export type { Context as GCTX } from "./hook/mod.ts";
+export { on } from "./hook.ts";
+export type { Context as GCTX } from "./hook.ts";
 
 // Telegram
 export {
@@ -28,7 +28,19 @@ export type {
   ReleaseEvent,
   StarEvent,
   WorkflowRunEvent,
+  WebhookEvent,
+  WebhookEventMap,
+  WebhookEventName,
   // For production
   // } from "npm:@octokit/webhooks-types/schema.d.ts@^6.11.0";
   // For development
 } from "./schema.ts";
+
+// Crypto
+export { hmac } from "https://deno.land/x/crypto@v0.8.0/hmac.ts";
+
+// Djwt
+export { create as createJWT } from "https://deno.land/x/djwt@v2.2/mod.ts";
+
+// Hex
+export { encodeToString } from "https://deno.land/std@0.100.0/encoding/hex.ts";
