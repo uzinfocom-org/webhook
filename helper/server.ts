@@ -1,5 +1,5 @@
 // Middleware
-import triggers from "./middleware/mod.ts";
+import triggers from "../middleware/mod.ts";
 
 // GitHub Webhook & Http server
 import { serve, webhooks } from "../deps.ts";
