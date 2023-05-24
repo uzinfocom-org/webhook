@@ -1,50 +1,76 @@
-// Middleware
-import triggers from "../middleware/mod.ts";
-
 // GitHub Webhook & Http server
-import { serve, webhooks } from "../deps.ts";
+import { Config, Context, EventHandler } from "../hook/mod.ts";
+import {
+  fetchPayload,
+  fetchToken,
+  json,
+  parseHeaders,
+  verifySignature,
+} from "../hook/mod.ts";
 
-const env = Deno.env.toObject();
+export { on } from "../hook/mod.ts";
+
 // TODO: Implement telegram bot
 // export const bot = new Bot(env["TOKEN"] || "");
 // export const handle = webhookCallback(bot, "std/http");
 
-export default async () => {
-  await console.log("[INFO]", `bot is starting on ${env["HOST"]}`);
-  await serve((req: Request) => { // async
-    const url = new URL(req.url);
+export default <C extends Context>(
+  config: Config,
+  eventHandlers: ReadonlyArray<EventHandler<C>>,
+) => {
+  // deno-lint-ignore no-explicit-any
+  return async (fetchEvent: any) => {
+    const startTime = Date.now();
 
-    if (req.method == "POST") {
-      switch (url.pathname) {
-        case "/bot":
-          try {
-            return new Response("Done. Set");
-          } catch (err) {
-            console.error(err);
-            return new Response("Couldn't succeed handling bot request");
-          }
-        case "/webhook":
-          try {
-            return webhooks()(...triggers);
-          } catch (err) {
-            console.error(err);
-            return new Response("Nope, GitHub webhook isn't working...");
-          }
-        default:
-          return new Response("What you're trying to post?");
+    const request: Request = fetchEvent.request;
+
+    try {
+      const { event, signature } = parseHeaders(request.headers);
+
+      if (config.secret && !signature) {
+        throw new Error("Unsigned request");
       }
+
+      const payload = await fetchPayload(request);
+
+      if (config.secret && signature) {
+        verifySignature(payload, signature, config.secret);
+      } else {
+        console.warn(`Skipping signature validation...`);
+      }
+
+      // @ts-ignore FIXME
+      let context: C = {
+        installationId: (payload as { installation?: { id: number } })
+          .installation?.id,
+      };
+
+      if (config.appId && config.privateKey && context.installationId) {
+        context = {
+          ...context,
+          token: await fetchToken(
+            config.appId,
+            context.installationId,
+            config.privateKey,
+          ),
+        };
+      } else {
+        console.warn(`Skipping fetching token...`);
+      }
+
+      // FIXME: prefer immutability instead
+      for (const handler of eventHandlers) {
+        context = await handler(event, payload, context) || context;
+      }
+
+      await fetchEvent.respondWith(json({ success: true }));
+    } catch (error) {
+      await fetchEvent.respondWith(
+        json({ error }),
+        error.status || error.statusCode || error.code || 500,
+      );
     }
 
-    switch (url.pathname) {
-      case "/webhook":
-        try {
-          // await bot.api.setWebhook(`https://${url.hostname}/bot`);
-          return new Response("Done. Set");
-        } catch (_) {
-          return new Response("Couldn't succeed with installing webhook");
-        }
-      default:
-        return Response.redirect("https://t.me/xeonittebot", 302);
-    }
-  });
+    console.log(`Done in ${Date.now() - startTime}ms`);
+  };
 };

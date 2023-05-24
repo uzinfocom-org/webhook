@@ -1,7 +1,6 @@
 // GitHub Webhook
-export { on, webhooks } from "https://deno.land/x/github_webhooks@0.1.1/mod.ts";
-export type { Context as GCTX } from "https://deno.land/x/github_webhooks@0.1.1/mod.ts";
-export { serve } from "https://deno.land/std@0.188.0/http/server.ts";
+export { on } from "./hook/mod.ts";
+export type { Context as GCTX } from "./hook/mod.ts";
 
 // Telegram
 export {
@@ -14,6 +13,7 @@ export {
 } from "https://deno.land/x/grammy@v1.16.1/mod.ts";
 export type { NextFunction } from "https://deno.land/x/grammy@v1.16.1/mod.ts";
 
+// GitHub Payloads
 export type {
   CreateEvent,
   DeploymentEvent,
