@@ -46,3 +46,6 @@ https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-event
    6. Which events would you like to trigger this webhook: choose your preferred
    7. Check Active checkbox
 8. PROFIT!
+
+> **Reminder!**
+> If you forget WEBHOOK_SECRET token, feel free to regenerate and change tokens as this service won't work without it.
