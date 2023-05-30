@@ -18,6 +18,8 @@ export default <C extends Context>(
   config: Config,
   eventHandlers: ReadonlyArray<EventHandler<C>>,
 ) => {
+  console.log("Resolving the request");
+
   // deno-lint-ignore no-explicit-any
   return async (fetchEvent: any) => {
     const startTime = Date.now();
