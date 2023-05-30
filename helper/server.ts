@@ -10,10 +10,6 @@ import {
 
 export { on } from "../hook.ts";
 
-// TODO: Implement telegram bot
-// export const bot = new Bot(env["TOKEN"] || "");
-// export const handle = webhookCallback(bot, "std/http");
-
 export default <C extends Context>(
   config: Config,
   eventHandlers: ReadonlyArray<EventHandler<C>>,
