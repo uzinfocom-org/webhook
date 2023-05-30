@@ -96,6 +96,18 @@ export function parseHeaders(
 export async function fetchPayload(request: Request): Promise<WebhookEvent> {
   return (await request.json()) as WebhookEvent;
 }
+function constantTimeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+
+  return result === 0;
+}
 
 export function verifySignature(
   payload: WebhookEvent,
@@ -112,8 +124,7 @@ export function verifySignature(
     return false;
   }
 
-  // TODO: validate timing safe equal
-  return signature === verificationSignature;
+  return constantTimeCompare(signature, verificationSignature);
 }
 
 function toNormalizedJSONString(payload: WebhookEvent) {
