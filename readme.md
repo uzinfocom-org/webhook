@@ -17,7 +17,7 @@ In this repository, you'll find all the information and resources you need to se
 and use the GitHub Event Notifications tool. Get started and ensure that you're always
 in the loop with GitHub events.
 
-For more API usage:
+For more API usages:
 https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 
 # How to deploy?
