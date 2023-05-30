@@ -8,7 +8,7 @@ import { Config, Context, EventHandler } from "./hook.ts";
 /* Listens to `fetch` events and handles requests from GitHub */
 export function webhooks<C extends Context = Context>(config: Config = {}) {
   console.log("Listening to the request");
-  
+
   return (...eventHandlers: ReadonlyArray<EventHandler<C>>) => {
     addEventListener("fetch", server<C>(config, eventHandlers));
   };

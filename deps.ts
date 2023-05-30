@@ -27,10 +27,10 @@ export type {
   PushEvent,
   ReleaseEvent,
   StarEvent,
-  WorkflowRunEvent,
   WebhookEvent,
   WebhookEventMap,
   WebhookEventName,
+  WorkflowRunEvent,
   // For production
   // } from "npm:@octokit/webhooks-types/schema.d.ts@^6.11.0";
   // For development
