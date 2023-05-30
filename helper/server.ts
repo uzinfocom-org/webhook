@@ -25,6 +25,10 @@ export default <C extends Context>(
     try {
       const { event, signature } = parseHeaders(request.headers);
 
+      if (!config.secret) {
+        throw new Error("Secret not set");
+      }
+
       if (config.secret && !signature) {
         throw new Error("Unsigned request");
       }
