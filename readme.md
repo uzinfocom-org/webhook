@@ -31,6 +31,7 @@ https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-event
    4. Add 2 environment variables:
       1. Key: TOKEN, Value: **(your custom telegram bot key from [botfather](https://t.me/botfather))**
       2. Key: WEBHOOK, Value: **(your custom telegram channel/group id see [here](https://gist.github.com/mraaroncruz/e76d19f7d61d59419002db54030ebe35))**
+      3. Key: WEBHOOK_SECRET, Value: **(random generated string that can contain anything)**
 4. Go to [dashboard](https://dash.deno.com/projects/) and select a newly created project
 5. Copy deploy domain which does not contain random id
    1. ✅ your-project-name.deno.dev
@@ -39,8 +40,9 @@ https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-event
 7. Add new webhook
    1. Click on "Add webhook" button
    2. Payload URL: insert deploy domain from step 5
-   3. Content type: application/json
-   4. SSL verification: enable
-   5. Which events would you like to trigger this webhook: choose your preferred
-   6. Check Active checkbox
+   3. Secret: insert WEBHOOK_SECRET from step 3
+   4. Content type: application/json
+   5. SSL verification: enable
+   6. Which events would you like to trigger this webhook: choose your preferred
+   7. Check Active checkbox
 8. PROFIT!
