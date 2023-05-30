@@ -25,10 +25,6 @@ export default <C extends Context>(
     try {
       const { event, signature } = parseHeaders(request.headers);
 
-      if (!config.secret) {
-        throw new Error("Secret not set");
-      }
-
       if (config.secret && !signature) {
         throw new Error("Unsigned request");
       }
@@ -38,7 +34,7 @@ export default <C extends Context>(
       if (config.secret && signature) {
         verifySignature(payload, signature, config.secret);
       } else {
-        console.warn(`Skipping signature validation...`);
+        return console.warn(`Secret not set`);
       }
 
       // @ts-ignore FIXME
