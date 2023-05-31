@@ -96,6 +96,7 @@ export function parseHeaders(
 export async function fetchPayload(request: Request): Promise<WebhookEvent> {
   return (await request.json()) as WebhookEvent;
 }
+
 function constantTimeCompare(a: string, b: string): boolean {
   if (a.length !== b.length) {
     return false;

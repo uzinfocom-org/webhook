@@ -25,14 +25,14 @@ export default <C extends Context>(
     try {
       const { event, signature } = parseHeaders(request.headers);
 
-      if (config.secret && !signature) {
-        throw new Error("Unsigned request");
-      }
-
       const payload = await fetchPayload(request);
 
       if (config.secret && signature) {
-        verifySignature(payload, signature, config.secret);
+        const isValid = verifySignature(payload, signature, config.secret);
+
+        if (!isValid) {
+          throw new Error("Invalid signature");
+        }
       } else {
         return console.warn(`Secret not set`);
       }
