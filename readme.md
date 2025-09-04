@@ -36,7 +36,7 @@ https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-event
 5. Copy deploy domain which does not contain random id
    1. ✅ your-project-name.deno.dev
    2. ❌ your-project-name-1234567890ab.deno.dev
-6. Go to your organization page -> settings -> webhooks (https://github.com/organizations/<your-organization>/settings/hooks)
+6. Go to your organization page -> settings -> webhooks (https://github.com/organizations/your-organization/settings/hooks)
 7. Add new webhook
    1. Click on "Add webhook" button
    2. Payload URL: insert deploy domain from step 5
